@@ -1,0 +1,94 @@
+site_name: Mobile Hoverboard Robot Base
+site_url: https://irl-ct.github.io/mobile_hoverboard_robot_base/
+site_description: Documentation for the CT-IRL Mobile Hoverboard Robot Base — a low-cost, modular platform for HRI research.
+site_author: Cornell Tech Interaction Lab (CT-IRL)
+
+repo_name: IRL-CT/mobile_hoverboard_robot_base
+repo_url: https://github.com/IRL-CT/mobile_hoverboard_robot_base
+
+theme:
+  name: material
+  logo: assets/images/cornell_tech_logo.png
+  favicon: assets/images/cornell_tech_logo.png
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.tabs.link
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Bill of Materials: bom.md
+  - ODrive Calibration: software/configuration.md
+  - Assembly:
+      - Overview: assembly/index.md
+      - Frame: assembly/frame.md
+      - Electronics & Wiring: assembly/electronics.md
+      - Drive System: assembly/drive.md
+      - Sensors: assembly/sensors.md
+  - Software:
+      - Overview: software/index.md
+      - Installation: software/installation.md
+      - Running the Robot: software/running.md
+  - Teleoperation: teleoperation.md
+  - Research: research.md
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - assets/javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+plugins:
+  - search
+  - glightbox
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/IRL-CT

@@ -1,0 +1,26 @@
+/* Cornell Red — Carnelian #B31B1B */
+:root,
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color:        #B31B1B;
+  --md-primary-fg-color--light: #cf2e2e;
+  --md-primary-fg-color--dark:  #8a1515;
+  --md-primary-bg-color:        #ffffff;
+  --md-accent-fg-color:         #B31B1B;
+  --md-accent-fg-color--transparent: rgba(179, 27, 27, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:        #B31B1B;
+  --md-primary-fg-color--light: #cf2e2e;
+  --md-primary-fg-color--dark:  #8a1515;
+  --md-accent-fg-color:         #cf2e2e;
+  --md-accent-fg-color--transparent: rgba(207, 46, 46, 0.1);
+}
+
+/* Make the logo a bit taller in the header */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  height: 2rem;
+  width: auto;
+  filter: brightness(0) invert(1); /* white logo on red header */
+}
