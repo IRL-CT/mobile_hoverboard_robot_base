@@ -24,23 +24,15 @@ Before launching, complete [ODrive calibration](configuration.md) on the base RP
 
 ---
 
-## Step 2: SSH into Both Raspberry Pis
+## Step 2: SSH into the Raspberry Pi
 
-**Base RPi (internal — runs motor controller):**
 ```bash
-ssh ubuntu@<base-rpi-ip>
+ssh usrname@<rpi-ip>
 ```
-
-**Controller RPi (external — runs joystick):**
-```bash
-ssh ubuntu@<controller-rpi-ip>
-```
-
-Replace the IP addresses with those assigned to your Raspberry Pis on your network.
-
 ---
 
 ## Step 3: Launch on the Controller RPi
+First, connect joystick to RPi via Bluetooth.
 
 **Terminal 1** — Start the joy node (reads joystick input):
 ```bash
@@ -58,7 +50,7 @@ ros2 launch joy_teleop_keymapping mapping_launch.py
 
 ---
 
-## Step 4: Launch on the Base RPi
+## Step 4: Launch on the RPi
 
 **Terminal 5** — Launch the mobile base controller (reads `/cmd_vel`, drives motors):
 ```bash
@@ -89,20 +81,10 @@ ros2 topic echo /cmd_vel
 
 Use the [8BitDo Lite 2 controller](../teleoperation.md) to drive the robot. Place the attachment (trash bin, chair, etc.) on top before operating in public.
 
----
+!!! tip "Controller Key Mapping"
+    Different controller might have different key mappings. You can always print /joy topic messages to inspect if the code aligns with the mapping.
 
-## Quick Start Scripts
-
-Both robots have convenience scripts that wrap the above:
-
-```bash
-# On the base RPi (after calibration):
-./start_mobile_base.sh
-
-# On the controller RPi (after base is running):
-./start_controller.sh
-```
-
+    Safety button. In our code, you must hold down the top left trigger on the controller for the robot to start listening to the joysticks. This is good to have as a safety feature.
 ---
 
 ## Shutdown
