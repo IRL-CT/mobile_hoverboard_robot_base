@@ -44,16 +44,6 @@ ODrive v3.6 has some issues with hall sensors [Forum link](https://discourse.odr
 
 ---
 
-## Fasteners & Misc.
-
-| Qty | Part |
-|-----|------|
-| ~10 | Screws (for dolly and mounting plate) |
-| ~8 | Nuts |
-| 2 | Screwdrivers |
-
----
-
 ## Laser Cut Files (for trash barrel robot example)
 
 Download the templates from the [images directory](https://github.com/IRL-CT/Summer25_Trashbot/tree/main/images):
