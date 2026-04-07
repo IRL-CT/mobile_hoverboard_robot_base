@@ -894,10 +894,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-ssh-into-both-raspberry-pis" class="md-nav__link">
+  <a href="#step-2-ssh-into-the-raspberry-pi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: SSH into Both Raspberry Pis
+        Step 2: SSH into the Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-usrnamerpi-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ssh usrname@&lt;rpi-ip&gt;
       
     </span>
   </a>
@@ -916,10 +927,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-launch-on-the-base-rpi" class="md-nav__link">
+  <a href="#step-4-launch-on-the-rpi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Launch on the Base RPi
+        Step 4: Launch on the RPi
       
     </span>
   </a>
@@ -942,17 +953,6 @@
     <span class="md-ellipsis">
       
         Step 6: Drive!
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Start Scripts
       
     </span>
   </a>
@@ -1089,10 +1089,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-ssh-into-both-raspberry-pis" class="md-nav__link">
+  <a href="#step-2-ssh-into-the-raspberry-pi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: SSH into Both Raspberry Pis
+        Step 2: SSH into the Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssh-usrnamerpi-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ssh usrname@&lt;rpi-ip&gt;
       
     </span>
   </a>
@@ -1111,10 +1122,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-launch-on-the-base-rpi" class="md-nav__link">
+  <a href="#step-4-launch-on-the-rpi" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Launch on the Base RPi
+        Step 4: Launch on the RPi
       
     </span>
   </a>
@@ -1137,17 +1148,6 @@
     <span class="md-ellipsis">
       
         Step 6: Drive!
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-start-scripts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Start Scripts
       
     </span>
   </a>
@@ -1230,59 +1230,50 @@
 <h2 id="step-1-calibrate-the-odrive">Step 1: Calibrate the ODrive<a class="headerlink" href="#step-1-calibrate-the-odrive" title="Permanent link">¶</a></h2>
 <p>Before launching, complete <a href="../configuration/">ODrive calibration</a> on the base RPi.</p>
 <hr>
-<h2 id="step-2-ssh-into-both-raspberry-pis">Step 2: SSH into Both Raspberry Pis<a class="headerlink" href="#step-2-ssh-into-both-raspberry-pis" title="Permanent link">¶</a></h2>
-<p><strong>Base RPi (internal — runs motor controller):</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>ubuntu@&lt;base-rpi-ip&gt;
-</code></pre></div><p></p>
-<p><strong>Controller RPi (external — runs joystick):</strong>
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ssh<span class="w"> </span>ubuntu@&lt;controller-rpi-ip&gt;
-</code></pre></div><p></p>
-<p>Replace the IP addresses with those assigned to your Raspberry Pis on your network.</p>
-<hr>
+<h2 id="step-2-ssh-into-the-raspberry-pi">Step 2: SSH into the Raspberry Pi<a class="headerlink" href="#step-2-ssh-into-the-raspberry-pi" title="Permanent link">¶</a></h2>
+<h2 id="ssh-usrnamerpi-ip"><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>usrname@&lt;rpi-ip&gt;
+</code></pre></div><a class="headerlink" href="#ssh-usrnamerpi-ip" title="Permanent link">¶</a></h2>
 <h2 id="step-3-launch-on-the-controller-rpi">Step 3: Launch on the Controller RPi<a class="headerlink" href="#step-3-launch-on-the-controller-rpi" title="Permanent link">¶</a></h2>
+<p>First, connect joystick to RPi via Bluetooth.</p>
 <p><strong>Terminal 1</strong> — Start the joy node (reads joystick input):
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>ros2<span class="w"> </span>run<span class="w"> </span>joy<span class="w"> </span>joy_node
 </code></pre></div><p></p>
 <p><strong>Terminal 3</strong> — Launch the key mapping node (maps joystick to <code>/cmd_vel</code>):
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">cd</span><span class="w"> </span>~/mobilehri_ws
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>colcon<span class="w"> </span>build
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nb">source</span><span class="w"> </span>install/setup.bash
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>ros2<span class="w"> </span>launch<span class="w"> </span>joy_teleop_keymapping<span class="w"> </span>mapping_launch.py
+</code></pre></div><p></p>
+<hr>
+<h2 id="step-4-launch-on-the-rpi">Step 4: Launch on the RPi<a class="headerlink" href="#step-4-launch-on-the-rpi" title="Permanent link">¶</a></h2>
+<p><strong>Terminal 5</strong> — Launch the mobile base controller (reads <code>/cmd_vel</code>, drives motors):
 </p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">cd</span><span class="w"> </span>~/mobilehri_ws
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>colcon<span class="w"> </span>build
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">source</span><span class="w"> </span>install/setup.bash
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>ros2<span class="w"> </span>launch<span class="w"> </span>joy_teleop_keymapping<span class="w"> </span>mapping_launch.py
-</code></pre></div><p></p>
-<hr>
-<h2 id="step-4-launch-on-the-base-rpi">Step 4: Launch on the Base RPi<a class="headerlink" href="#step-4-launch-on-the-base-rpi" title="Permanent link">¶</a></h2>
-<p><strong>Terminal 5</strong> — Launch the mobile base controller (reads <code>/cmd_vel</code>, drives motors):
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>~/mobilehri_ws
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>colcon<span class="w"> </span>build
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">source</span><span class="w"> </span>install/setup.bash
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>ros2<span class="w"> </span>launch<span class="w"> </span>mobile_robot_control<span class="w"> </span>mobile_robot_launch.py
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>ros2<span class="w"> </span>launch<span class="w"> </span>mobile_robot_control<span class="w"> </span>mobile_robot_launch.py
 </code></pre></div><p></p>
 <hr>
 <h2 id="step-5-verify">Step 5: Verify<a class="headerlink" href="#step-5-verify" title="Permanent link">¶</a></h2>
 <p><strong>Terminal 2</strong> (controller RPi) — confirm joystick data is flowing:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joy
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/joy
 </code></pre></div><p></p>
 <p><strong>Terminal 4</strong> (controller RPi) — confirm velocity commands are being generated:
-</p><div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/cmd_vel
+</p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ros2<span class="w"> </span>topic<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>/cmd_vel
 </code></pre></div><p></p>
 <hr>
 <h2 id="step-6-drive">Step 6: Drive!<a class="headerlink" href="#step-6-drive" title="Permanent link">¶</a></h2>
 <p>Use the <a href="../../teleoperation/">8BitDo Lite 2 controller</a> to drive the robot. Place the attachment (trash bin, chair, etc.) on top before operating in public.</p>
-<hr>
-<h2 id="quick-start-scripts">Quick Start Scripts<a class="headerlink" href="#quick-start-scripts" title="Permanent link">¶</a></h2>
-<p>Both robots have convenience scripts that wrap the above:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># On the base RPi (after calibration):</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>./start_mobile_base.sh
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># On the controller RPi (after base is running):</span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>./start_controller.sh
-</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Controller Key Mapping</p>
+<p>Different controller might have different key mappings. You can always print /joy topic messages to inspect if the code aligns with the mapping.</p>
+<p>Safety button. In our code, you must hold down the top left trigger on the controller for the robot to start listening to the joysticks. This is good to have as a safety feature.</p>
+</div>
 <hr>
 <h2 id="shutdown">Shutdown<a class="headerlink" href="#shutdown" title="Permanent link">¶</a></h2>
 <p>Always shut down the Raspberry Pis gracefully before cutting power:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>shutdown<span class="w"> </span>now
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>shutdown<span class="w"> </span>now
 </code></pre></div>
 <p>Then disconnect the hoverboard battery.</p>
 
