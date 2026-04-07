@@ -44,6 +44,15 @@ ODrive v3.6 has some issues with hall sensors [Forum link](https://discourse.odr
 
 ---
 
+## Miscellaneous
+
+| Qty | Part | Source |
+|-----|------|--------|
+| 1 | M2.5 Standoffs Screws Nut | [Amazon](https://a.co/d/0gseefIl) |
+| 1 | Flathead Screwdriver |  |
+| 1 | 22 AWG Stranded Wire Kit | [Amazon](hhttps://a.co/d/0io9KoQr) |
+
+---
 ## Laser Cut Files (for trash barrel robot example)
 
 Download the templates from the [images directory](https://github.com/IRL-CT/Summer25_Trashbot/tree/main/images):
