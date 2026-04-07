@@ -1,0 +1,1618 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the CT-IRL Mobile Hoverboard Robot Base — a low-cost, modular platform for HRI research.">
+      
+      
+        <meta name="author" content="Cornell Tech Interaction Lab (CT-IRL)">
+      
+      
+        <link rel="canonical" href="https://irl-ct.github.io/mobile_hoverboard_robot_base/software/configuration/">
+      
+      
+        <link rel="prev" href="../../bom/">
+      
+      
+        <link rel="next" href="../../assembly/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/cornell_tech_logo.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>ODrive Calibration - Mobile Hoverboard Robot Base</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#odrive-calibration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Mobile Hoverboard Robot Base" class="md-header__button md-logo" aria-label="Mobile Hoverboard Robot Base" data-md-component="logo">
+      
+  <img src="../../assets/images/cornell_tech_logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Mobile Hoverboard Robot Base
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ODrive Calibration
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/IRL-CT/mobile_hoverboard_robot_base" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IRL-CT/mobile_hoverboard_robot_base
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../bom/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Bill of Materials
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  ODrive Calibration
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../assembly/" class="md-tabs__link">
+          
+  
+  
+  Assembly
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  Software
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../teleoperation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Teleoperation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../research/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Research
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Mobile Hoverboard Robot Base" class="md-nav__button md-logo" aria-label="Mobile Hoverboard Robot Base" data-md-component="logo">
+      
+  <img src="../../assets/images/cornell_tech_logo.png" alt="logo">
+
+    </a>
+    Mobile Hoverboard Robot Base
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/IRL-CT/mobile_hoverboard_robot_base" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    IRL-CT/mobile_hoverboard_robot_base
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../bom/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bill of Materials
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ODrive Calibration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ODrive Calibration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#part-a-bench-hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Bench Hardware Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part A: Bench Hardware Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-clamp-the-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A1. Clamp the Wheel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-build-the-filtering-pcbs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A2. Build the Filtering PCBs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-insert-hoverboard-wires-to-odrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A3. Insert Hoverboard Wires to ODrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-insert-brake-resistor-into-odrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A4. Insert Brake Resistor into ODrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a5-connect-xt60-power-cable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A5. Connect XT60 Power Cable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a6-connect-odrive-to-raspberry-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A6. Connect ODrive to Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a9-plug-in-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A9. Plug In Power
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-software-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Software Calibration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B: Software Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b1-flash-the-raspberry-pi-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B1. Flash the Raspberry Pi Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b2-ssh-into-the-raspberry-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B2. SSH into the Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b3-download-the-lab-config-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B3. Download the Lab Config File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b4-open-odrive-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B4. Open ODrive Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b5-calibrate-axis-0-first-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B5. Calibrate Axis 0 (First Wheel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b6-test-axis-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B6. Test Axis 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b7-calibrate-axis-1-second-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B7. Calibrate Axis 1 (Second Wheel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4">
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assembly
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Assembly
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/frame/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Frame
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/electronics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Electronics &amp; Wiring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/drive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Drive System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assembly/sensors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sensors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5">
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Software
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Software
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../running/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Running the Robot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teleoperation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teleoperation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../research/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#part-a-bench-hardware-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Bench Hardware Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part A: Bench Hardware Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a1-clamp-the-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A1. Clamp the Wheel
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2-build-the-filtering-pcbs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A2. Build the Filtering PCBs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a3-insert-hoverboard-wires-to-odrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A3. Insert Hoverboard Wires to ODrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a4-insert-brake-resistor-into-odrive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A4. Insert Brake Resistor into ODrive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a5-connect-xt60-power-cable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A5. Connect XT60 Power Cable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a6-connect-odrive-to-raspberry-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A6. Connect ODrive to Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a9-plug-in-power" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A9. Plug In Power
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-b-software-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Software Calibration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B: Software Calibration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#b1-flash-the-raspberry-pi-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B1. Flash the Raspberry Pi Image
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b2-ssh-into-the-raspberry-pi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B2. SSH into the Raspberry Pi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b3-download-the-lab-config-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B3. Download the Lab Config File
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b4-open-odrive-tool" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B4. Open ODrive Tool
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b5-calibrate-axis-0-first-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B5. Calibrate Axis 0 (First Wheel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b6-test-axis-0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B6. Test Axis 0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b7-calibrate-axis-1-second-wheel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B7. Calibrate Axis 1 (Second Wheel)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="odrive-calibration">ODrive Calibration<a class="headerlink" href="#odrive-calibration" title="Permanent link">¶</a></h1>
+<p>Calibrate each motor individually on the bench <strong>before</strong> assembling the robot. This sets the motor parameters and verifies the hall sensor connections. Do this once per robot (or after a config reset).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The motor will beep and spin during calibration. Clamp the wheel securely — never hold it by hand.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">After Calibration</p>
+<p>Once both wheels are calibrated, proceed to <a href="../../assembly/">Assembly</a> to mount everything onto the robot frame.</p>
+</div>
+<hr>
+<h2 id="part-a-bench-hardware-setup">Part A: Bench Hardware Setup<a class="headerlink" href="#part-a-bench-hardware-setup" title="Permanent link">¶</a></h2>
+<p>Before running any software, set up the ODrive and one wheel on the bench.</p>
+<h3 id="a1-clamp-the-wheel">A1. Clamp the Wheel<a class="headerlink" href="#a1-clamp-the-wheel" title="Permanent link">¶</a></h3>
+<p>Remove one wheel from the hoverboard with a hex key. Clamp the axle firmly to a desk — the wheel must be <strong>free to spin</strong> but the axle must not move.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/disassemble_0.jpeg" data-desc-position="bottom"><img alt="Wheel clamped to desk" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/disassemble_0.jpeg" width="400"></a></p>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/disassemble_1.jpeg" data-desc-position="bottom"><img alt="Wheel clamped to desk — side view" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/disassemble_1.jpeg" width="400"></a></p>
+</figure>
+<hr>
+<h3 id="a2-build-the-filtering-pcbs">A2. Build the Filtering PCBs<a class="headerlink" href="#a2-build-the-filtering-pcbs" title="Permanent link">¶</a></h3>
+<p>Solder three 22 nF capacitors onto each breadboard (one per motor). These filter noise on the hall sensor lines. See the <a href="https://discourse.odriverobotics.com/t/encoder-error-error-illegal-hall-state/1047/7">ODrive hall state post</a> for details.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b3a_pcb.png" data-desc-position="bottom"><img alt="PCB assembly step 1" src="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b3a_pcb.png" width="500"></a>
+  </p>
+<figcaption>Filtering PCB — step 1</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b4a_pcb.png" data-desc-position="bottom"><img alt="PCB assembly step 2" src="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b4a_pcb.png" width="500"></a>
+  </p>
+<figcaption>Filtering PCB — step 2</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/breadboard_wiring.png" data-desc-position="bottom"><img alt="Breadboard wiring diagram" src="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/breadboard_wiring.png" width="200"></a>
+  </p>
+<figcaption>Complete breadboard wiring reference</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/pinout.jpeg" data-desc-position="bottom"><img alt="Filtering PCB pinout" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/pinout.jpeg" width="400"></a>
+  </p>
+<figcaption>Filtering PCB pinout — five pins from GND to 5V</figcaption>
+</figure>
+<hr>
+<h3 id="a3-insert-hoverboard-wires-to-odrive">A3. Insert Hoverboard Wires to ODrive<a class="headerlink" href="#a3-insert-hoverboard-wires-to-odrive" title="Permanent link">¶</a></h3>
+<p>Insert hoverboard wires (yellow, blue, green) from the motor to the ODrive board. You may need to solder wire extensions if the wires are too short. Cover any dangling white wires with electrical tape.</p>
+<p>The five PCB pins go from GND to 5V — the <strong>red wire connects to the 5V pin</strong> labeled on the ODrive.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b5a_ybg.png" data-desc-position="bottom"><img alt="Hall sensor wiring (YBG)" src="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b5a_ybg.png" width="500"></a>
+  </p>
+<figcaption>Yellow / Blue / Green hall sensor connections</figcaption>
+</figure>
+<hr>
+<h3 id="a4-insert-brake-resistor-into-odrive">A4. Insert Brake Resistor into ODrive<a class="headerlink" href="#a4-insert-brake-resistor-into-odrive" title="Permanent link">¶</a></h3>
+<p>Insert the brake resistor into the designated slot in the middle of the ODrive board.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b6a_resistor.png" data-desc-position="bottom"><img alt="Resistor position" src="https://raw.githubusercontent.com/IRL-CT/Summer25_Trashbot/main/images/2b6a_resistor.png" width="500"></a>
+  </p>
+<figcaption>Brake resistor placement on ODrive</figcaption>
+</figure>
+<hr>
+<h3 id="a5-connect-xt60-power-cable">A5. Connect XT60 Power Cable<a class="headerlink" href="#a5-connect-xt60-power-cable" title="Permanent link">¶</a></h3>
+<p>Connect the XT60 power cable from the hoverboard battery to the ODrive power input.</p>
+<div class="admonition danger">
+<p class="admonition-title">Polarity</p>
+<p>Red wire = positive, black wire = negative. Reversing polarity will damage the ODrive.</p>
+</div>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/odrive_0.jpeg" data-desc-position="bottom"><img alt="XT60 connection" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/odrive_0.jpeg" width="400"></a></p>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/odrive_1.jpeg" data-desc-position="bottom"><img alt="XT60 tightened" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/odrive_1.jpeg" width="400"></a></p>
+</figure>
+<hr>
+<h3 id="a6-connect-odrive-to-raspberry-pi">A6. Connect ODrive to Raspberry Pi<a class="headerlink" href="#a6-connect-odrive-to-raspberry-pi" title="Permanent link">¶</a></h3>
+<p>Connect a <strong>micro-USB cable</strong> from the ODrive to the base Raspberry Pi.</p>
+<hr>
+<h3 id="a9-plug-in-power">A9. Plug In Power<a class="headerlink" href="#a9-plug-in-power" title="Permanent link">¶</a></h3>
+<p>Connect the hoverboard battery. The ODrive power LED should light up.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/full.jpeg" data-desc-position="bottom"><img alt="Full bench setup" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/full.jpeg" width="600"></a>
+  </p>
+<figcaption>Complete bench setup — ODrive connected to one wheel and Raspberry Pi</figcaption>
+</figure>
+<hr>
+<h2 id="part-b-software-calibration">Part B: Software Calibration<a class="headerlink" href="#part-b-software-calibration" title="Permanent link">¶</a></h2>
+<h3 id="b1-flash-the-raspberry-pi-image">B1. Flash the Raspberry Pi Image<a class="headerlink" href="#b1-flash-the-raspberry-pi-image" title="Permanent link">¶</a></h3>
+<p>Use the <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a> to write the class image to an SD card, then boot the base RPi.</p>
+<p><a class="md-button" href="https://drive.google.com/file/d/1PMWyJUoA-CJ73vktrp3nPKiykwzOaauU/view?usp=sharing" target="_blank">Download class RPi image</a></p>
+<hr>
+<h3 id="b2-ssh-into-the-raspberry-pi">B2. SSH into the Raspberry Pi<a class="headerlink" href="#b2-ssh-into-the-raspberry-pi" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>ubuntu@&lt;base-rpi-ip&gt;
+</code></pre></div>
+<p>The IP address is displayed on the miniTFT screen after boot.</p>
+<hr>
+<h3 id="b3-download-the-lab-config-file">B3. Download the Lab Config File<a class="headerlink" href="#b3-download-the-lab-config-file" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>curl<span class="w"> </span>-LJO<span class="w"> </span>https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/mobilehri_config.json
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>odrivetool<span class="w"> </span>restore-config<span class="w"> </span>mobilehri_config.json
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignore warnings about parameters not being loaded — you will recalibrate the motors anyway. ODrive parameters may vary between hoverboard models; consult the <a href="https://docs.odriverobotics.com/v/0.5.5/hoverboard.html">ODrive hoverboard guide</a> if needed.</p>
+</div>
+<hr>
+<h3 id="b4-open-odrive-tool">B4. Open ODrive Tool<a class="headerlink" href="#b4-open-odrive-tool" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>odrivetool
+</code></pre></div>
+<p>The terminal should show <code>Connected to ODrive xxxxxxxx</code> and a <code>&gt;&gt;&gt;</code> prompt.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/images/odrivetool.jpg" data-desc-position="bottom"><img alt="ODrive tool connected" src="../../assets/images/odrivetool.jpg" width="600"></a>
+  </p>
+<figcaption>ODrive tool connected</figcaption>
+</figure>
+<hr>
+<h3 id="b5-calibrate-axis-0-first-wheel">B5. Calibrate Axis 0 (First Wheel)<a class="headerlink" href="#b5-calibrate-axis-0-first-wheel" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">clear_errors</span><span class="p">()</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis0</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_FULL_CALIBRATION_SEQUENCE</span>
+</code></pre></div>
+<p>Wait for the motor to beep and spin briefly (~10–15 seconds), then check for errors:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">dump_errors</span><span class="p">(</span><span class="n">odrv0</span><span class="p">)</span>
+</code></pre></div>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../assets/images/dump_error.jpg" data-desc-position="bottom"><img alt="Dump errors output" src="../../assets/images/dump_error.jpg" width="600"></a>
+  </p>
+<figcaption>Expected output — no errors after successful calibration</figcaption>
+</figure>
+<p>Check for errors under <code>axis0</code>. If you see an <code>ILLEGAL_HALL_STATE</code> error, check that the filtering PCB is plugged in correctly. See the <a href="https://discourse.odriverobotics.com/t/encoder-error-error-illegal-hall-state/1047/12?page=2">ODrive Hall State troubleshooting thread</a> for more help.</p>
+<p>If no errors, save and reboot:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">save_configuration</span><span class="p">()</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+</code></pre></div>
+<hr>
+<h3 id="b6-test-axis-0">B6. Test Axis 0<a class="headerlink" href="#b6-test-axis-0" title="Permanent link">¶</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis0</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_CLOSED_LOOP_CONTROL</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis0</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">input_vel</span> <span class="o">=</span> <span class="mi">2</span>   <span class="c1"># 2 turns/second</span>
+</code></pre></div>
+<p>Note the spinning direction. To stop:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis0</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">input_vel</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis0</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_IDLE</span>
+</code></pre></div>
+<hr>
+<h3 id="b7-calibrate-axis-1-second-wheel">B7. Calibrate Axis 1 (Second Wheel)<a class="headerlink" href="#b7-calibrate-axis-1-second-wheel" title="Permanent link">¶</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Unplug the battery before swapping wheels.</strong> Remove the first wheel's JST connector and phase wires, then connect the second wheel to axis 1.</p>
+</div>
+<p>Reconnect the second wheel's hall sensor JST to the <strong>axis 1</strong> filtering PCB port and screw the phase wires into <strong>M1</strong>.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/other_wheel.jpeg" data-desc-position="bottom"><img alt="Second wheel setup" src="https://raw.githubusercontent.com/FAR-Lab/Mobile_HRI_Lab_Hub/main/Lab3/Images/other_wheel.jpeg" width="600"></a>
+  </p>
+<figcaption>Second wheel connected to axis 1</figcaption>
+</figure>
+<p>Plug in power and reconnect with <code>odrivetool</code>, then:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">clear_errors</span><span class="p">()</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis1</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_FULL_CALIBRATION_SEQUENCE</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">dump_errors</span><span class="p">(</span><span class="n">odrv0</span><span class="p">)</span>
+</code></pre></div>
+<p>Check errors under <code>axis1</code>. If no errors:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">save_configuration</span><span class="p">()</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">reboot</span><span class="p">()</span>
+</code></pre></div>
+<p>Test axis 1:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis1</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_CLOSED_LOOP_CONTROL</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis1</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">input_vel</span> <span class="o">=</span> <span class="mi">2</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis1</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">input_vel</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="n">odrv0</span><span class="o">.</span><span class="n">axis1</span><span class="o">.</span><span class="n">requested_state</span> <span class="o">=</span> <span class="n">AXIS_STATE_IDLE</span>
+</code></pre></div>
+<p>Both wheels calibrated — proceed to <a href="../../assembly/">Assembly</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/IRL-CT" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../assets/javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
