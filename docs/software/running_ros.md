@@ -1,6 +1,6 @@
-# Running the Robot
+# Running the Robot - *ROS*
 
-This page covers the full startup sequence for operating the platform. Two Raspberry Pis must be running simultaneously — one inside the robot (base) and one external (controller).
+This page covers the full startup sequence for operating the platform via ROS. Two Raspberry Pis must be running simultaneously — one inside the robot (base) and one external (controller).
 
 ---
 
@@ -29,6 +29,7 @@ Before launching, complete [ODrive calibration](configuration.md) on the base RP
 ```bash
 ssh usrname@<rpi-ip>
 ```
+
 ---
 
 ## Step 3: Launch on the Controller RPi

@@ -28,7 +28,7 @@ theme:
     code: Roboto Mono
   features:
     - navigation.tabs
-    - navigation.sections
+    # - navigation.sections
     - navigation.expand
     - navigation.top
     - search.suggest
@@ -51,7 +51,9 @@ nav:
   - Software:
       - Overview: software/index.md
       - Installation: software/installation.md
-      - Running the Robot: software/running.md
+      - 'Running the Robot':
+          - ROS2: software/running_ros.md
+          - SSH-only: software/running_ssh.md
   - Teleoperation: teleoperation.md
   - Research: research.md
 
@@ -70,6 +72,9 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tasklist:
+      clickable_checkbox: true
+      custom_checkbox: true
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.highlight:
