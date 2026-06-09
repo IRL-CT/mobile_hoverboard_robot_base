@@ -23,8 +23,8 @@ Running the robot requires **2 terminals** across the two Raspberry Pis.
 
 | Terminal | RPi | Command |
 |----------|-----|---------|
-| 1 | Base RPi | `ssh ubuntu@<off-board-RPi-IP-address>` |
-| 2 | Controller RPi | `ssh ubuntu@<on-board-RPi-IP-address>` |
+| 1 | Base RPi | `ssh ubuntu@<off-board-rpi-ip>` |
+| 2 | Controller RPi | `ssh ubuntu@<on-board-rpi-ip>` |
 
 ---
 
@@ -47,8 +47,8 @@ odrv0.clear_errors()
 - [ ] Calibrate the ODrive:
 
 ```bash
-odrv0.axis0.state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-odrv0.axis1.state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
 ```
 
 - [ ] Run `dump_errors(odrv0)` **multiple times while calibrating** to check if there are new errors. 
@@ -61,7 +61,7 @@ quit()
 ```
 
 !!! warning "Unplug Before Reconnecting"
-    If you `Ctrl + C` in Terminals 1 or 2 after a successful base-controller connection or during Step 2, the base cannot properly reconnect due to unfinished port clean up from the last session.
+    If you `Ctrl + C` in Terminals 1 or 2 after a successful base-controller connection or during Step 2, the base cannot properly reconnect due to unfinished port clean up.
 
     **When reconnecting after quitting, unplug and reconnect base RPi from on-board bank and battery from ODrive**.
 
