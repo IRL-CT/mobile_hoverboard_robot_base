@@ -36,5 +36,5 @@ EOF
 
 echo "=================================================="
 echo "Calibration commands completed."
-echo “If no errors, ready to start mobile base.”
+echo "If no errors, ready to start mobile base."
 echo "=================================================="

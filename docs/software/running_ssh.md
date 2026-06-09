@@ -6,8 +6,8 @@ This page covers the full connection sequence for wirelessly controlling the hov
 
 - [ ] Power on both Raspberry Pis.
 
-    - On-board RPi connects to on-board power bank.
-    - Off-board RPi connects to external power source (ex. off-board power bank).
+    <!-- - On-board RPi connects to on-board power bank.
+    - Off-board RPi connects to external power source (ex. off-board power bank). -->
 
 - [ ] Power on portable router. Connect laptop to WiFi. (Check router for name & password.)
     - Computer will prompt to open new window with WiFi connection details. 
