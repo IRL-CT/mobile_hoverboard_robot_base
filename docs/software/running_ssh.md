@@ -9,7 +9,7 @@ This page covers the full connection sequence for wirelessly controlling the hov
     - On-board RPi connects to on-board power bank.
     - Off-board RPi connects to external power source (ex. off-board power bank).
 
-- [ ] Power on NetGear router. Connect laptop to `NT_GEAR` WiFi. (Check router for password.)
+- [ ] Power on portable router. Connect laptop to WiFi. (Check router for name & password.)
     - Computer will prompt to open new window with WiFi connection details. 
 
     - Check that **3 devices** are connected: **2 Raspberry Pis** and **host device**.
@@ -30,50 +30,61 @@ Running the robot requires **2 terminals** across the two Raspberry Pis.
 
 ## Step 2: Calibrate the ODrive
 
-- [ ] In **Terminal 1**, connect to the **base (on-board) RPi**:
+- [ ] In **Terminal 1**, connect to the **base (on-board) RPi**. Run:
 
-```bash
-odrivetool
-```
+    === "With Script"
 
-- Check that ODrive connects. Connection issues are often due to faulty cords.
-- [ ] Run this to ensure no errors:
+        ```
+        ./calibrate_odrive.sh
+        ```
 
-```bash
-dump_errors(odrv0)
-odrv0.clear_errors()
-```
+        - If errors appear, address the messages and rerun this script.
 
-- [ ] Calibrate the ODrive:
+        - [ ] Once *Calibration commands completed.* appears without errors, start the base:
+        ```bash
+        ./start_mobile_base.sh
+        ```
 
-```bash
-odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
-```
+    === "Terminal Only"
 
-- [ ] Run `dump_errors(odrv0)` **multiple times while calibrating** to check if there are new errors. 
-    - If errors arise, address the error message, run `odrv0.clear_errors()`, and continue. Retry calibration if errors persist.
-- [ ] Once calibration completes (base stops moving), quit `odrivetool`. Configure the base for controller connection.
+        ```bash
+        odrivetool
+        ```
 
-```bash
-quit()
-./start_mobile_base.sh
-```
+        - Check that ODrive connects. Connection issues are often due to faulty cords.
+        - [ ] Run this to ensure no errors:
 
-!!! warning "Unplug Before Reconnecting"
-    If you `Ctrl + C` in Terminals 1 or 2 after a successful base-controller connection or during Step 2, the base cannot properly reconnect due to unfinished port clean up.
+        ```bash
+        dump_errors(odrv0)
+        odrv0.clear_errors()
+        ```
 
-    **When reconnecting after quitting, unplug and reconnect base RPi from on-board bank and battery from ODrive**.
+        - [ ] Calibrate the ODrive:
 
-    The same terminals can be used once the RPi and battery are replugged!
+        ```bash
+        odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+        odrv0.axis1.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+        ```
+
+        - [ ] Run `dump_errors(odrv0)` **multiple times while calibrating** to check if there are new errors. 
+            - If errors arise, address the error message, run `odrv0.clear_errors()`, and continue. Retry calibration if errors persist.
+        - [ ] Once calibration completes (base stops moving), quit `odrivetool`. Configure the base for controller connection.
+
+    !!! warning "Shutdown/Unplug Before Reconnecting"
+        If you `Ctrl + C` in Terminal 1 after a successful base-controller connection or during Step 2, the base will not properly reconnect due to unfinished port clean up.
+
+        <!-- - Rerunning `./start_mobile_base.sh` in Terminal 1 yields: `[USB] Could not claim interface  on USB device: -6` -->
+
+        - **When reconnecting after quitting in Terminal 1, run `./shutdown.sh` to clean up the base connection.**
+
+        - If errors persist, unplug and replug the off-board RPi and battery. The same terminals can be used once these two are replugged!
 
 ---
 
 ## Step 3: Connect to Controller
 
-- [ ] Check that the off-board RPi is connected to a charged controller. 
+- [ ] Ensure the off-board RPi is connected to a charged controller. 
 - [ ] In **Terminal 2**, connect to the **controller (off-board) RPi**:
-
 ```bash
 ./start_controller.sh
 ```
@@ -91,5 +102,6 @@ Use the [8BitDo Lite 2 controller](../teleoperation.md) to drive the robot. Plac
 ---
 
 ## Shutdown
-- [ ] `Ctrl + C` in both terminals to exit.
+
+- [ ] `Ctrl + C` in both terminals.
 - [ ] Disconnect both RPi's. Unplug the hoverboard battery.
