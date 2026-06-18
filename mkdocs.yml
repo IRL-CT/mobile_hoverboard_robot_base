@@ -53,7 +53,7 @@ nav:
       - Installation: software/installation.md
       - 'Running the Robot':
           - ROS2: software/running_ros.md
-          - SSH-only: software/running_ssh.md
+          - SSH-only (ROS1): software/running_ssh.md
   - Teleoperation: teleoperation.md
   - Research: research.md
 

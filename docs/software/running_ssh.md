@@ -1,4 +1,4 @@
-# Running the Robot - *SSH only*
+# Running the Robot - *SSH only (ROS1)*
 
 This page covers the full connection sequence for wirelessly controlling the hoverboard base. Two Raspberry Pis must be running simultaneously — one inside the robot (base) and one external (controller).
 
@@ -38,7 +38,7 @@ Running the robot requires **2 terminals** across the two Raspberry Pis.
         ./calibrate_odrive.sh
         ```
 
-        - If errors appear, address the messages and rerun this script.
+        - If errors appear, address the messages. Unplug and replug the on-board RPi and hoverboard battery, then restart Step 2.
 
         - [ ] Once *Calibration commands completed.* appears without errors, start the base:
         ```bash
