@@ -1,4 +1,4 @@
-# Running the Robot - *ROS*
+# Running the Robot - *ROS2*
 
 This page covers the full startup sequence for operating the platform via ROS. Two Raspberry Pis must be running simultaneously — one inside the robot (base) and one external (controller).
 

@@ -56,6 +56,7 @@ nav:
           - SSH-only (ROS1): software/running_ssh.md
   - Teleoperation: teleoperation.md
   - Research: research.md
+  - Team: team.md
 
 extra_css:
   - assets/stylesheets/extra.css
