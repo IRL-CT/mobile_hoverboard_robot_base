@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://irl-ct.github.io/mobile_hoverboard_robot_base/teleoperation/">
       
       
-        <link rel="prev" href="../software/running/">
+        <link rel="prev" href="../software/running_ssh/">
       
       
         <link rel="next" href="../research/">
@@ -366,6 +366,25 @@
   
 
       
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../team/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Team
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -502,8 +521,6 @@
     
     
       
-      
-        
       
     
     
@@ -704,8 +721,6 @@
     
       
       
-        
-      
     
     
     <li class="md-nav__item md-nav__item--nested">
@@ -808,9 +823,25 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../software/running/" class="md-nav__link">
+    
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
         
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3">
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
   
   
   <span class="md-ellipsis">
@@ -824,7 +855,79 @@
   
   
 
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Running the Robot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/running_ros/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ROS2
+  
+
+    
+  </span>
+  
+  
+
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../software/running_ssh/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSH-only (ROS1)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -1009,6 +1112,33 @@
     
   
     Research
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../team/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Team
   
 
     
@@ -1271,7 +1401,7 @@ Boot the 8BitDo into wireless pairing mode (hold the pairing button). When it ap
 <p>Feel free to customize the button mapping in <code>keymapping_node.py</code> — the 8BitDo has many buttons, triggers, and axes to work with.</p>
 <hr>
 <h2 id="part-e-drive-with-the-hoverboard">Part E: Drive with the Hoverboard<a class="headerlink" href="#part-e-drive-with-the-hoverboard" title="Permanent link">¶</a></h2>
-<p>Once both the mapping node and the mobile base controller are running (see <a href="../software/running/">Running the Robot</a>):</p>
+<p>Once both the mapping node and the mobile base controller are running (see <a href="software/running.md">Running the Robot</a>):</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>ros2<span class="w"> </span>launch<span class="w"> </span>mobile_robot_control<span class="w"> </span>mobile_robot_launch.py
 </code></pre></div>
 <p>Hold <strong>L1</strong> and use the <strong>left stick</strong> to drive. Place the trash bin on top and start your HRI experiment!</p>
@@ -1358,7 +1488,7 @@ Boot the 8BitDo into wireless pairing mode (hold the pairing button). When it ap
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
